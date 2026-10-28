@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Glossary — MCP Client First Steps</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip-link" href="#start">Skip to main content</a>
+<header>
+  <div class="inner">
+    <a href="index.html" style="text-decoration:none;color:inherit;">&larr; Back to guide</a>
+    <h1>Glossary</h1>
+    <p class="kicker">MCP Client First Steps &middot; Asdale Dynamics, LLC</p>
+  </div>
+</header>
+<main id="start" style="max-width:720px;margin:0 auto;padding:2rem 1.5rem 4rem;">
+  <p>Plain-English definitions for terms used in this manual.</p>
+  <dl style="margin:1rem 0;">
+    <dt>AI provider</dt>
+    <dd>The company that runs the AI model you chat with (for example, the maker of your AI app). File contents you ask the AI to read may be sent to the provider to generate an answer.</dd>
+
+    <dt>Client (MCP client)</dt>
+    <dd>The part of an AI app that talks to MCP servers. It shows the AI which tools are available and carries messages back and forth.</dd>
+
+    <dt>Folder</dt>
+    <dd>Also called a directory. A container for files on your computer.</dd>
+
+    <dt>JSON-RPC</dt>
+    <dd>A simple message format used by MCP. Each message is a small piece of JSON with an ID, a method name, and optional data. The client and server send these messages back and forth.</dd>
+
+    <dt>MCP</dt>
+    <dd>Model Context Protocol. A shared language that lets AI apps connect to servers that provide tools and data.</dd>
+
+    <dt>MCP server</dt>
+    <dd>A small program that provides capabilities to an AI client, such as reading files from a folder.</dd>
+
+    <dt>Server command</dt>
+    <dd>The command you type (or paste into your MCP client settings) to start an MCP server.</dd>
+
+    <dt>Stdio</dt>
+    <dd>Standard input/output. A way for programs to exchange text. An stdio MCP server reads messages from standard input and writes replies to standard output.</dd>
+
+    <dt>Tool</dt>
+    <dd>A capability an MCP server offers, such as <code>read_file</code> or <code>list_directory</code>. The AI chooses which tool to use, and the client runs it.</dd>
+
+    <dt>Universal plug</dt>
+    <dd>A way to think about MCP: one standard connection instead of a different custom connection for every AI app and every data source.</dd>
+  </dl>
+
+  <hr style="border:none;border-top:1px solid var(--line);margin:2rem 0;">
+
+  <div class="credit">
+    <strong>Credit:</strong> Written and published by <strong>Asdale Dynamics, LLC</strong> (Indiana, formed October 2026). Dylan Asdale &mdash; registered nurse, AI author, founder of Asdale Dynamics, LLC. Book: <em>The Massive AI Manual</em> &mdash; hub site: dylanasdale.github.io<br>
+    MIT License. Copyright (c) 2026 Asdale Dynamics, LLC.
+  </div>
+</main>
+</body>
+</html>

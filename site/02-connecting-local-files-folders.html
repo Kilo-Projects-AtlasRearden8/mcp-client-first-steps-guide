@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2. Connecting to Local Files and Folders — MCP Client First Steps</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip-link" href="#start">Skip to main content</a>
+<header>
+  <div class="inner">
+    <a href="index.html" style="text-decoration:none;color:inherit;">&larr; Back to guide</a>
+    <h1>2. Connecting to Local Files and Folders</h1>
+    <p class="kicker">MCP Client First Steps &middot; Asdale Dynamics, LLC</p>
+  </div>
+</header>
+<main id="start" style="max-width:720px;margin:0 auto;padding:2rem 1.5rem 4rem;">
+  <section>
+    <h2>The idea</h2>
+    <p>You have folders of documents, notes, or books on your computer. You want an AI assistant to read them and answer questions &mdash; without you copying and pasting everything into the chat. An MCP <strong>filesystem server</strong> gives the AI controlled access to chosen folders on your machine.</p>
+    <p>This section shows you how to connect a client to local files and folders, step by step. We use a filesystem MCP server as the example, because it is the most common first server people run.</p>
+  </section>
+
+  <section>
+    <h2>Step 1: Pick the folders you want to share</h2>
+    <p>Before installing anything, decide exactly which folders the AI may see. Good choices:</p>
+    <ul>
+      <li>A dedicated folder you create for this purpose, such as <code>~/ai-readable/</code></li>
+      <li>A specific project folder</li>
+      <li>Your notes or drafts folder</li>
+    </ul>
+    <p>Avoid sharing:</p>
+    <ul>
+      <li>Your whole home directory (<code>~</code> or <code>C:\Users\you</code>)</li>
+      <li>Folders with passwords, tax documents, medical records, IDs, or bank statements</li>
+      <li>System folders or folders belonging to other people on the computer</li>
+    </ul>
+    <div class="warn"><strong>Rule of thumb:</strong> share only what you would be comfortable showing the AI. You can always add more folders later; removing access is harder once files have been read.</div>
+  </section>
+
+  <section>
+    <h2>Step 2: Install the MCP client app</h2>
+    <p>If you do not already have an MCP client, install one. Examples of MCP-capable apps include desktop AI chat applications and AI-enabled code editors. Look in the app&rsquo;s settings for &ldquo;MCP,&rdquo; &ldquo;servers,&rdquo; &ldquo;integrations,&rdquo; or &ldquo;extensions.&rdquo;</p>
+    <p>Each client has its own way to add a server. The steps below describe the typical pattern; your app&rsquo;s help pages will have the exact menu names.</p>
+  </section>
+
+  <section>
+    <h2>Step 3: Add the filesystem server</h2>
+    <p>In the client&rsquo;s MCP settings, add a new server. You will usually provide:</p>
+    <ul>
+      <li>A name for the server (for example, &ldquo;My Files&rdquo;)</li>
+      <li>The command to run the server (for example, <code>npx @modelcontextprotocol/server-filesystem</code> or the path to a local server program)</li>
+      <li>The folders you want to share, passed as arguments to the server command</li>
+    </ul>
+    <p>Example (exact syntax depends on your client):</p>
+    <pre><code>Command: npx
+Args: @modelcontextprotocol/server-filesystem /home/dylan/ai-readable</code></pre>
+    <p>The client starts the server program, and the server opens only the folders you listed.</p>
+  </section>
+
+  <section>
+    <h2>Step 4: Confirm the connection</h2>
+    <p>After adding the server, the client should show it as &ldquo;connected&rdquo; or list its available tools. Common tools from a filesystem server:</p>
+    <ul>
+      <li><code>list_directory</code> &mdash; list the files and folders in a shared folder</li>
+      <li><code>read_file</code> &mdash; read the contents of a shared file</li>
+    </ul>
+    <p>Try asking the AI: &ldquo;List the files in my shared folder.&rdquo; If it replies with a file list, the connection works.</p>
+  </section>
+
+  <section>
+    <h2>Step 5: Try reading a file</h2>
+    <p>Ask the AI to read a specific file in a shared folder:</p>
+    <blockquote>&ldquo;Read <code>notes.txt</code> from my shared folder and summarize it.&rdquo;</blockquote>
+    <p>The AI uses the <code>read_file</code> tool through the client, the server reads the file from disk, and the AI answers based on the contents.</p>
+  </section>
+
+  <section>
+    <h2>Step 6: Disconnect when you are done</h2>
+    <p>When you no longer need the AI to see those files, remove the server in the client&rsquo;s MCP settings and stop the server process. The AI loses access immediately.</p>
+  </section>
+
+  <section>
+    <h2>What the connection looks like</h2>
+    <pre><code>You ask AI to read a file
+    │
+    ▼
+AI app (MCP client)
+    │ sends request over stdio
+    ▼
+Filesystem MCP server (runs on your computer)
+    │ reads the file from your disk
+    ▼
+Your local folder
+    │ sends file contents back
+    ▼
+Filesystem MCP server  ──►  MCP client  ──►  AI answer to you</code></pre>
+    <p>The files stay on your computer. The server reads them and sends the contents to the client; nothing is uploaded to a third party just for this step (though the AI provider may still process the contents &mdash; see section 04).</p>
+  </section>
+
+  <section>
+    <h2>Troubleshooting</h2>
+    <table>
+      <thead><tr><th>Problem</th><th>Likely fix</th></tr></thead>
+      <tbody>
+        <tr><td>Server won&rsquo;t start</td><td>Check the command and path are correct; make sure Node.js is installed if the server needs it</td></tr>
+        <tr><td>Client can&rsquo;t see the folder</td><td>Confirm the folder path is absolute and the folder exists</td></tr>
+        <tr><td>AI says it has no file tools</td><td>The server may not be connected; check the client&rsquo;s server status</td></tr>
+        <tr><td>&ldquo;Permission denied&rdquo;</td><td>The user account running the client needs read access to the folder</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="nav">
+    <a href="01-what-is-an-mcp-client.html">&larr; Previous: 01. What is an MCP client?</a>
+    <a href="03-running-first-stdio-server.html">Next: 03. Running your first stdio server &rarr;</a>
+  </section>
+
+  <hr style="border:none;border-top:1px solid var(--line);margin:2rem 0;">
+
+  <div class="credit">
+    <strong>Credit:</strong> Written and published by <strong>Asdale Dynamics, LLC</strong> (Indiana, formed October 2026). Dylan Asdale &mdash; registered nurse, AI author, founder of Asdale Dynamics, LLC. Book: <em>The Massive AI Manual</em> &mdash; hub site: dylanasdale.github.io<br>
+    MIT License. Copyright (c) 2026 Asdale Dynamics, LLC.
+  </div>
+</main>
+</body>
+</html>

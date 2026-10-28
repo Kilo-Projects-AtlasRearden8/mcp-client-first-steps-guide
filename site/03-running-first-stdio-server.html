@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3. Running Your First stdio MCP Server — MCP Client First Steps</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip-link" href="#start">Skip to main content</a>
+<header>
+  <div class="inner">
+    <a href="index.html" style="text-decoration:none;color:inherit;">&larr; Back to guide</a>
+    <h1>3. Running Your First stdio MCP Server</h1>
+    <p class="kicker">MCP Client First Steps &middot; Asdale Dynamics, LLC</p>
+  </div>
+</header>
+<main id="start" style="max-width:720px;margin:0 auto;padding:2rem 1.5rem 4rem;">
+  <section>
+    <h2>The idea</h2>
+    <p>In this section you will run a real, tiny MCP server that speaks over <strong>stdio</strong> (standard input/output). You will send it MCP messages and get real answers back &mdash; no AI app required yet.</p>
+    <p>The example server lives in <code>examples/stdio-server/</code>. It needs only Node.js &mdash; no npm install, no API keys, no internet after you have the files.</p>
+  </section>
+
+  <section>
+    <h2>What the example server does</h2>
+    <p>It is a minimal filesystem-style MCP server with two tools:</p>
+    <ul>
+      <li><code>list_directory</code> &mdash; lists the entries in a folder you choose</li>
+      <li><code>read_file</code> &mdash; reads the text contents of a file you choose</li>
+    </ul>
+    <p>It only sees the folder you point it at (by default, an <code>example-data/</code> folder next to the server), so it is safe to experiment with.</p>
+  </section>
+
+  <section>
+    <h2>The files</h2>
+    <pre><code>examples/stdio-server/
+├── server.js        # the stdio MCP server
+├── test-server.js   # test script: starts the server and chats over stdio
+├── example-data/    # safe demo files the server can read
+│   ├── welcome.txt
+│   └── notes.md
+└── README.md</code></pre>
+  </section>
+
+  <section>
+    <h2>Run the test</h2>
+    <p>Open a terminal in the project folder and run:</p>
+    <pre><code>node examples/stdio-server/test-server.js</code></pre>
+    <p>You should see output like:</p>
+    <pre><code>[test] initialize -> server accepted, capabilities: tools
+[test] list tools -> list_directory, read_file
+[test] list_directory(example-data) -> notes.md, welcome.txt
+[test] read_file(example-data/welcome.txt) -> 'Welcome to your first MCP server!'
+[test] ALL TESTS PASSED</code></pre>
+    <p class="ok">If you see <code>ALL TESTS PASSED</code>, the server works.</p>
+  </section>
+
+  <section>
+    <h2>Try the server directly (optional)</h2>
+    <p>You can also drive the server by hand. In one terminal, start the server:</p>
+    <pre><code>node examples/stdio-server/server.js</code></pre>
+    <p>It waits for JSON messages on standard input. Send an initialize message:</p>
+    <pre><code>{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2024-11-05","capabilities":{},"clientInfo":{"name":"test","version":"1.0.0"}}}</code></pre>
+    <p>The server replies with something like:</p>
+    <pre><code>{"jsonrpc":"2.0","id":1,"result":{"protocolVersion":"2024-11-05","capabilities":{"tools":{}},"serverInfo":{"name":"example-stdio-filesystem","version":"1.0.0"}}}</code></pre>
+    <p>Press <code>Ctrl+C</code> to stop the server when you are done.</p>
+  </section>
+
+  <section>
+    <h2>How the server works (short version)</h2>
+    <p><code>server.js</code> does four things:</p>
+    <ol>
+      <li>Reads lines from standard input.</li>
+      <li>Parses each line as a JSON-RPC 2.0 message.</li>
+      <li>Handles three methods: <code>initialize</code>, <code>tools/list</code>, and <code>tools/call</code>.</li>
+      <li>Writes JSON-RPC responses to standard output.</li>
+    </ol>
+    <p>For <code>tools/call</code>, it checks the requested path against the allowed folder, reads the file, and returns the text. Paths that try to escape the allowed folder (for example, with <code>..</code>) are rejected &mdash; that is one of the safety rules in section 04, built into the code.</p>
+  </section>
+
+  <section class="nav">
+    <a href="02-connecting-local-files-folders.html">&larr; Previous: 02. Connecting to local files and folders</a>
+    <a href="04-safety-rules.html">Next: 04. Safety rules &rarr;</a>
+  </section>
+
+  <hr style="border:none;border-top:1px solid var(--line);margin:2rem 0;">
+
+  <div class="credit">
+    <strong>Credit:</strong> Written and published by <strong>Asdale Dynamics, LLC</strong> (Indiana, formed October 2026). Dylan Asdale &mdash; registered nurse, AI author, founder of Asdale Dynamics, LLC. Book: <em>The Massive AI Manual</em> &mdash; hub site: dylanasdale.github.io<br>
+    MIT License. Copyright (c) 2026 Asdale Dynamics, LLC.
+  </div>
+</main>
+</body>
+</html>

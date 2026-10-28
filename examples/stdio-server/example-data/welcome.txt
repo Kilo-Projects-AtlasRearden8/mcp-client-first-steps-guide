@@ -1,0 +1,6 @@
+Welcome to your first MCP server!
+
+This file lives in the example-data folder. An MCP server can read files like
+this one and hand the contents to an AI assistant through an MCP client.
+
+Try reading this file with the read_file tool.

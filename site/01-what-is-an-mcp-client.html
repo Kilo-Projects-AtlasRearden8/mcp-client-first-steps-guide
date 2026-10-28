@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1. What Is an MCP Client? — MCP Client First Steps</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip-link" href="#start">Skip to main content</a>
+<header>
+  <div class="inner">
+    <a href="index.html" style="text-decoration:none;color:inherit;">&larr; Back to guide</a>
+    <h1>1. What Is an MCP Client?</h1>
+    <p class="kicker">MCP Client First Steps &middot; Asdale Dynamics, LLC</p>
+  </div>
+</header>
+<main id="start" style="max-width:720px;margin:0 auto;padding:2rem 1.5rem 4rem;">
+  <section>
+    <h2>The short answer</h2>
+    <p>An <strong>MCP client</strong> is the part of an AI application that knows how to talk to <strong>MCP servers</strong>.</p>
+    <p>MCP stands for <strong>Model Context Protocol</strong>. Think of it like a universal plug: instead of every AI tool inventing its own way to reach your files, your calendar, or a database, MCP gives them one shared language. The <strong>client</strong> lives inside the AI app you use (for example, a desktop AI chat app, a code editor with AI features, or a custom assistant). The <strong>server</strong> is a small program that provides access to something useful &mdash; your local files, a folder of documents, a website, etc.</p>
+    <p>Client and server talk to each other over a simple connection. The most common one for beginners is called <strong>stdio</strong>: the server runs as a regular process on your computer, and the client sends it messages over standard input/output (the same streams programs use to print text and read input).</p>
+    <pre><code>You  ──►  AI app (MCP client)  ──►  MCP server  ──►  your files/folders</code></pre>
+  </section>
+
+  <section>
+    <h2>What the client actually does</h2>
+    <p>When you ask an AI assistant to &ldquo;read my notes&rdquo; or &ldquo;list the files in this folder,&rdquo; here is what happens under the hood:</p>
+    <ol>
+      <li><strong>The client tells the AI what tools are available.</strong> It asks the MCP server, &ldquo;What can you do?&rdquo; The server answers with a list of capabilities, called <strong>tools</strong> (for example, <code>read_file</code>, <code>list_directory</code>). The client shares those tool names and descriptions with the AI model.</li>
+      <li><strong>The AI decides which tool to use.</strong> If you ask to read a file, the AI picks the <code>read_file</code> tool and tells the client which file to open.</li>
+      <li><strong>The client sends the request to the server.</strong> It packages the request as a small JSON message and sends it to the server over the connection.</li>
+      <li><strong>The server does the work.</strong> It reads the file from your disk, for example.</li>
+      <li><strong>The client hands the result back to the AI.</strong> The AI reads the result and writes its answer to you.</li>
+    </ol>
+    <p>The client never changes your files on its own. It only carries messages between the AI and the server, and it only does what you (through the AI) ask it to.</p>
+  </section>
+
+  <section>
+    <h2>Why this matters for beginners</h2>
+    <p>Before MCP, if you wanted an AI to read your local files, you usually had to paste the file contents into the chat yourself, or use a custom integration built by the AI app&rsquo;s maker. MCP changes that:</p>
+    <ul>
+      <li><strong>One standard.</strong> Many AI apps can use the same MCP servers.</li>
+      <li><strong>Local-first.</strong> Servers run on your computer and access your files directly &mdash; nothing has to be uploaded to a third-party server just so an AI can read it.</li>
+      <li><strong>You stay in control.</strong> You choose which servers to install, which folders they can see, and you can remove them at any time.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Clients vs. servers (keep these straight)</h2>
+    <table>
+      <thead>
+        <tr><th></th><th>MCP Client</th><th>MCP Server</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Lives in</td><td>The AI app you use</td><td>A small program you run</td></tr>
+        <tr><td>Job</td><td>Carries messages, shows tools to the AI</td><td>Does the actual work (reads files, etc.)</td></tr>
+        <tr><td>Example</td><td>Desktop AI chat app, AI code editor</td><td>Filesystem server, local document server</td></tr>
+        <tr><td>You install</td><td>Comes with the AI app</td><td>You choose and add it</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>What you need for this guide</h2>
+    <ul>
+      <li>A computer (Windows, Mac, or Linux)</li>
+      <li>Node.js (to run the example server in section 3) &mdash; download from nodejs.org</li>
+      <li>An MCP client app of your choice. We will use examples that work with any stdio-capable MCP client, and we will also test the example server directly with a small script so you do not even need a client app to get started.</li>
+    </ul>
+  </section>
+
+  <section class="warn">
+    <h2>Safety preview</h2>
+    <p>Letting an AI read your files is convenient, but it deserves care. Section 4 covers safety rules in detail, and <code>checklists/checklist-03-safety-review.md</code> gives you a quick safety review to do before connecting any server to your folders.</p>
+  </section>
+
+  <section class="nav">
+    <a href="index.html">&larr; Guide home</a>
+    <a href="02-connecting-local-files-folders.html">Next: 02. Connecting to local files and folders &rarr;</a>
+  </section>
+
+  <hr style="border:none;border-top:1px solid var(--line);margin:2rem 0;">
+
+  <div class="credit">
+    <strong>Credit:</strong> Written and published by <strong>Asdale Dynamics, LLC</strong> (Indiana, formed October 2026). Dylan Asdale &mdash; registered nurse, AI author, founder of Asdale Dynamics, LLC. Book: <em>The Massive AI Manual</em> &mdash; hub site: dylanasdale.github.io<br>
+    MIT License. Copyright (c) 2026 Asdale Dynamics, LLC.
+  </div>
+</main>
+</body>
+</html>

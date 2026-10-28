@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4. Safety Rules for Letting AI Access Your Files — MCP Client First Steps</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip-link" href="#start">Skip to main content</a>
+<header>
+  <div class="inner">
+    <a href="index.html" style="text-decoration:none;color:inherit;">&larr; Back to guide</a>
+    <h1>4. Safety Rules for Letting AI Access Your Files</h1>
+    <p class="kicker">MCP Client First Steps &middot; Asdale Dynamics, LLC</p>
+  </div>
+</header>
+<main id="start" style="max-width:720px;margin:0 auto;padding:2rem 1.5rem 4rem;">
+  <section>
+    <h2>Why safety comes first</h2>
+    <p>An MCP server that reads your files can read <em>everything</em> in the folders you give it. The AI does not know which files are private unless you limit the server&rsquo;s access. These rules help you share files without sharing secrets.</p>
+  </section>
+
+  <section>
+    <h2>The golden rules</h2>
+    <ol>
+      <li><strong>Share specific folders, never your whole computer.</strong> Point the server at one dedicated folder (for example, <code>~/ai-readable/</code>), not your home directory or entire drive.</li>
+      <li><strong>Never share folders with secrets.</strong> Keep out of scope: passwords, API keys, tax returns, medical records, IDs, bank statements, and anything with other people&rsquo;s personal data.</li>
+      <li><strong>Read-only is safer.</strong> Prefer servers that can only read files. If a server can write, rename, or delete, one mistake by the AI can damage your data.</li>
+      <li><strong>You are in charge.</strong> You choose which servers to add, which folders they see, and you can remove them at any time. Access ends when you remove the server.</li>
+      <li><strong>Assume the AI provider sees what you send.</strong> File contents the AI reads may be sent to the AI provider&rsquo;s servers to generate an answer. Do not put sensitive files in an MCP-shared folder unless you are comfortable with that.</li>
+      <li><strong>Review before you connect.</strong> Read a server&rsquo;s description and check what it can do before installing it. Prefer open-source servers you can inspect.</li>
+      <li><strong>Keep a &ldquo;demo&rdquo; folder separate.</strong> Use <code>examples/stdio-server/example-data/</code> style folders for practice. Never practice with real documents you cannot afford to lose or share.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Safety checklist (quick)</h2>
+    <p>Before connecting a server to local files:</p>
+    <ul class="checklist">
+      <li><input type="checkbox"> I chose a single, specific folder to share</li>
+      <li><input type="checkbox"> The folder contains no passwords, keys, IDs, tax, medical, or bank documents</li>
+      <li><input type="checkbox"> The folder contains no other people&rsquo;s personal data</li>
+      <li><input type="checkbox"> The server is read-only (or I understand and accept write access)</li>
+      <li><input type="checkbox"> I know how to remove the server in my client&rsquo;s settings</li>
+      <li><input type="checkbox"> I understand the AI provider may see the file contents I ask it to read</li>
+    </ul>
+    <div class="warn">If you cannot check every box, stop and adjust before connecting.</div>
+  </section>
+
+  <section>
+    <h2>What the example server does for safety</h2>
+    <p>The example server in <code>examples/stdio-server/server.js</code>:</p>
+    <ul>
+      <li>Only sees the folder you launch it with (default: <code>example-data/</code>)</li>
+      <li>Rejects paths that try to escape that folder using <code>..</code> or absolute paths outside it</li>
+      <li>Only implements <code>list_directory</code> and <code>read_file</code> &mdash; no write, delete, or rename</li>
+    </ul>
+    <p>It is a safe sandbox for learning. Treat real servers with more caution.</p>
+  </section>
+
+  <section>
+    <h2>If something goes wrong</h2>
+    <ul>
+      <li>Remove the server from your MCP client settings immediately.</li>
+      <li>Stop the server process if it is still running.</li>
+      <li>Review which files were in the shared folder. If sensitive files were there, treat them as potentially exposed: rotate any passwords or keys found in them, and do not use them again.</li>
+    </ul>
+  </section>
+
+  <section class="nav">
+    <a href="03-running-first-stdio-server.html">&larr; Previous: 03. Running your first stdio server</a>
+    <a href="index.html">Guide home &rarr;</a>
+  </section>
+
+  <hr style="border:none;border-top:1px solid var(--line);margin:2rem 0;">
+
+  <div class="credit">
+    <strong>Credit:</strong> Written and published by <strong>Asdale Dynamics, LLC</strong> (Indiana, formed October 2026). Dylan Asdale &mdash; registered nurse, AI author, founder of Asdale Dynamics, LLC. Book: <em>The Massive AI Manual</em> &mdash; hub site: dylanasdale.github.io<br>
+    MIT License. Copyright (c) 2026 Asdale Dynamics, LLC.
+  </div>
+</main>
+</body>
+</html>

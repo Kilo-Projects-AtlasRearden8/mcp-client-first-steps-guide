@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MCP Client First Steps — Asdale Dynamics, LLC</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip-link" href="#start">Skip to main content</a>
+<header>
+  <div class="inner">
+    <h1>MCP Client First Steps</h1>
+    <nav>
+      <a href="#what">What MCP clients do</a>
+      <a href="#connect">Local files and folders</a>
+      <a href="#server">Your first stdio server</a>
+      <a href="#safety">Safety rules</a>
+      <a href="#checklists">Checklists</a>
+    </nav>
+    <p style="font-size:0.9rem;color:var(--muted);margin-top:0.25rem;">A beginner-friendly manual and static site &mdash; plain English, step by step, never condescending.</p>
+  </div>
+</header>
+<main id="start">
+  <section class="card">
+    <p class="kicker">About this guide</p>
+    <h2>MCP Client First Steps</h2>
+    <p>This guide walks you through <strong>MCP clients</strong> &mdash; what they do, how to connect them to local files and folders, how to run your first stdio MCP server, and the safety rules for letting an AI access your files.</p>
+    <p>It was written for Dylan Asdale, a registered nurse turned AI author and founder of <strong>Asdale Dynamics, LLC</strong> (Indiana, formed October 2026), and for anyone new to MCP who wants a hands-on, local-first introduction.</p>
+    <p class="ok"><strong>No secrets, API keys, or personal data</strong> are needed for any of the examples. Everything runs locally on your computer.</p>
+  </section>
+
+  <section class="toc">
+    <h2>In this guide</h2>
+    <ul>
+      <li><a href="#what">1. What is an MCP client?</a></li>
+      <li><a href="#connect">2. Connecting to local files and folders</a></li>
+      <li><a href="#server">3. Running your first stdio server</a></li>
+      <li><a href="#safety">4. Safety rules for letting AI access files</a></li>
+      <li><a href="#checklists">Step-by-step checklists</a></li>
+      <li><a href="glossary.html">Glossary</a></li>
+      <li><a href="01-what-is-an-mcp-client.html">Read section 1 &rarr;</a></li>
+    </ul>
+  </section>
+
+  <section id="what">
+    <h2>1. What is an MCP client? <span class="tag">Beginner</span></h2>
+    <p>MCP stands for <strong>Model Context Protocol</strong>. Think of it like a universal plug: instead of every AI app inventing its own way to reach your files, your calendar, or a database, MCP gives them one shared language.</p>
+    <p>The <strong>client</strong> lives inside the AI app you use. The <strong>server</strong> is a small program that provides access to something useful &mdash; your local files, a folder of documents, a website.</p>
+    <p>Client and server talk over a simple connection. The most common one for beginners is called <strong>stdio</strong>: the server runs as a regular process on your computer, and the client sends it messages over standard input/output.</p>
+    <pre><code>You ──► AI app (MCP client) ──► MCP server ──► your files/folders</code></pre>
+    <p><strong>What the client does:</strong> it tells the AI what tools the server offers, carries the AI&rsquo;s requests to the server, and hands the results back to the AI. The client never changes your files on its own.</p>
+    <p><a href="01-what-is-an-mcp-client.html">Read section 1 in full &rarr;</a></p>
+  </section>
+
+  <section id="connect">
+    <h2>2. Connecting to local files and folders</h2>
+    <p>You can give an MCP client controlled access to folders on your computer so an AI can read them &mdash; no copying and pasting required.</p>
+    <ol>
+      <li>Pick one specific folder to share (not your whole computer).</li>
+      <li>Add a filesystem server in your app&rsquo;s MCP settings.</li>
+      <li>Confirm the connection works by asking the AI to list the folder.</li>
+      <li>Try reading a file through the AI.</li>
+      <li>Remove the server when you are done.</li>
+    </ol>
+    <div class="warn"><strong>Safety first:</strong> never share folders with passwords, keys, IDs, tax returns, medical records, or bank statements. Read the safety rules before connecting real folders.</div>
+    <p><a href="02-connecting-local-files-folders.html">Read section 2 in full &rarr;</a></p>
+  </section>
+
+  <section id="server">
+    <h2>3. Running your first stdio server</h2>
+    <p>The example server in <code>examples/stdio-server/</code> needs only Node.js &mdash; nothing to install, no API keys.</p>
+    <pre><code>node examples/stdio-server/test-server.js</code></pre>
+    <p class="ok">Expected output ends with <code>[test] ALL TESTS PASSED</code>. The test starts the server, lists its tools, reads a demo file, and confirms path-traversal attempts are rejected.</p>
+    <p><a href="03-running-first-stdio-server.html">Read section 3 in full &rarr;</a></p>
+  </section>
+
+  <section id="safety">
+    <h2>4. Safety rules for letting AI access your files</h2>
+    <ul>
+      <li>Share specific folders, never your whole computer.</li>
+      <li>Never share folders with secrets.</li>
+      <li>Prefer read-only servers.</li>
+      <li>You are in charge: you can remove any server at any time.</li>
+      <li>Assume the AI provider sees what you send it.</li>
+    </ul>
+    <p><a href="04-safety-rules.html">Read section 4 in full &rarr;</a></p>
+  </section>
+
+  <section id="checklists">
+    <h2>Checklists</h2>
+    <p>Print or copy these and check off each step as you complete it.</p>
+    <nav class="nav">
+      <a href="checklists/checklist-01-connect-local-folder.md">Checklist 1 &mdash; Connect a local folder</a>
+      <a href="checklists/checklist-02-run-stdio-server.md">Checklist 2 &mdash; Run your first stdio server</a>
+      <a href="checklists/checklist-03-safety-review.md">Checklist 3 &mdash; Safety review</a>
+    </nav>
+  </section>
+
+  <section>
+    <h2>Try the example server</h2>
+    <pre><code># From the project folder:
+node examples/stdio-server/test-server.js</code></pre>
+    <p>The example lives in <code>examples/stdio-server/</code> alongside this guide.</p>
+  </section>
+</main>
+<footer>
+  <div class="inner">
+    <div class="credit">
+      <strong>Credit:</strong> Written and published by <strong>Asdale Dynamics, LLC</strong> (Indiana, formed October 2026).<br>
+      Dylan Asdale &mdash; registered nurse, AI author, founder of Asdale Dynamics, LLC.<br>
+      Book: <em>The Massive AI Manual</em> &mdash; hub site: dylanasdale.github.io
+    </div>
+    <p style="margin-top:0.75rem;">MIT License. Copyright (c) 2026 Asdale Dynamics, LLC. See <a href="../LICENSE">LICENSE</a>.</p>
+  </div>
+</footer>
+</body>
+</html>
